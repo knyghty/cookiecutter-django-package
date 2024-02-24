@@ -1,0 +1,11 @@
+{
+    "project_name": "Django Foo",
+    "__project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
+    "__package_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+    "__app_label": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('django_', '') }}",
+    "__app_class": "{{ cookiecutter.project_name.title().replace('Django ', '').replace(' ', '') }}",
+    "project_description": "A Django package that ...",
+    "author": "Tom Carrick",
+    "email": "tom@carrick.eu",
+    "github_username": "knyghty"
+}
