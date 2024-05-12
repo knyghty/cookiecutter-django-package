@@ -26,9 +26,9 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = ["django"]
-description = "Provides Django email integration for RQ (Redis Queue)"
+description = "{{ cookiecutter.project_description }}"
 license = { "file" = "LICENSE" }
-name = "django-rq-email-backend"
+name = "{{ cookiecutter.__project_slug }}"
 readme = "README.rst"
 version = "0.1.0"
 
