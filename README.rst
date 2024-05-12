@@ -21,10 +21,8 @@ This template has an opinionated setup. It includes the following:
 
 * ``pyproject.toml`` for configuration.
 * A GitHub actions workflow that:
-
-    * Runs the test across supported Python and Django versions.
-    * Publishes to PyPI using Trusted Publisher Management.
-
+  * Runs the test across supported Python and Django versions.
+  * Publishes to PyPI using Trusted Publisher Management.
 * Ruff for linting and formatting, with pre-commit configuration.
 * A working test setup.
 * An empty Django app.
@@ -33,14 +31,14 @@ This template has an opinionated setup. It includes the following:
 What this doesn't do
 ====================
 
-- It's assumed you'll run pre-commit CI, so linting isn't run through GitHub Actions.
-- The linting configuration is quite minimal, you may want to add more `Ruff rules`_.
-- There's no documentation. Most projects can get away with a README until they grow.
-  However, I'd welcome a PR adding optional Sphinx / readthedocs support.
-- There's no changelog or version management support. I just change the version in
+* It's assumed you'll run pre-commit CI, so linting isn't run through GitHub Actions.
+* The linting configuration is quite minimal, you may want to add more `Ruff rules`_.
+* There's no documentation. Most projects can get away with a README until they grow.
+* However, I'd welcome a PR adding optional Sphinx / readthedocs support.
+* There's no changelog or version management support. I just change the version in
   ``pyproject.toml`` and commit it and make a GitHub release using their generated
   release notes, which is good enough for me.
-- There isn't (yet) much configuration, if for example you want to use a different
+* There isn't (yet) much configuration, if for example you want to use a different
   license or test on multiple databases. While this is a minimalist template I made
   for my own projects, I would welcome PRs for more (useful) configuration options.
 
