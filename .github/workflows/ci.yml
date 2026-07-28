@@ -1,0 +1,63 @@
+name: CI
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_SYSTEM_PYTHON: 1
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Run prek
+        uses: j178/prek-action@v2
+        with:
+          # Constrain prek to the repo's own config: workspace discovery would
+          # otherwise run the template's config against unrendered jinja files.
+          extra-args: "--all-files --config .pre-commit-config.yaml"
+
+  bake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - name: Bake the template
+        run: uvx cookiecutter . --no-input --output-dir /tmp/bake
+      - name: Run the generated project's hooks
+        working-directory: /tmp/bake/django-foo
+        run: |
+          git init --quiet
+          git add --all
+          uvx prek run --all-files
+      - name: Run the generated project's tests
+        working-directory: /tmp/bake/django-foo
+        run: |
+          uv pip install -e .
+          uv pip install -r requirements.txt
+          python -m coverage run runtests.py
+
+  checks:
+    if: always()
+    runs-on: ubuntu-latest
+    needs: [lint, bake]
+    steps:
+      - name: Check all jobs passed
+        run: |
+          [ "${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}" = "false" ]
