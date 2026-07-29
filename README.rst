@@ -23,7 +23,7 @@ This template has an opinionated setup. It includes the following:
 * A GitHub actions workflow that:
   * Runs the test across supported Python and Django versions.
   * Publishes to PyPI using Trusted Publisher Management.
-* Ruff for linting and formatting, with pre-commit configuration.
+* Ruff for linting and formatting, run with prek.
 * A working test setup.
 * An empty Django app.
 * dependabot configuration for updating GitHub Actions.
@@ -31,7 +31,8 @@ This template has an opinionated setup. It includes the following:
 What this doesn't do
 ====================
 
-* It's assumed you'll run pre-commit CI, so linting isn't run through GitHub Actions.
+* Linting runs in GitHub Actions with prek, and a weekly workflow updates hook
+  versions with auto-merging pull requests.
 * The linting configuration is quite minimal, you may want to add more `Ruff rules`_.
 * There's no documentation. Most projects can get away with a README until they grow.
 * However, I'd welcome a PR adding optional Sphinx / readthedocs support.
